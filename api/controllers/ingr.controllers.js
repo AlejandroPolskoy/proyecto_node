@@ -16,4 +16,4 @@ function deleteIngr(req, res) {
     console.log("Esto es getIngr");
 }
 
-module.exports = Ingredientes;
+module.exports = { getIngr, createIngr, modifyIngr, deleteIngr }; 
