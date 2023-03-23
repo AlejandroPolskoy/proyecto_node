@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 
 const cockteleSchema = new mongoose.Schema (
     {
-        nomnbre: {type: String, required: true },
+        nombre: {type: String, required: true },
         receta: [{ type: Object, required: false }],
         image: {type: String, required: false},
         origen: {type: String, required: true},
@@ -10,6 +10,6 @@ const cockteleSchema = new mongoose.Schema (
     }
 )
 
-const Cocktele = mongoose.model("cocktele", cockteleSchema);
+const Cockteles = mongoose.model("cocktele", cockteleSchema);
 
-module.exports = Cocktele;
+module.exports = Cockteles;

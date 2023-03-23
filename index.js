@@ -19,11 +19,11 @@ const routerIngr = require("./api/routers/ingr.routes");
 server.use( express.json() );
 server.use( express.urlencoded( {extended: true} ));
 //routes
-server.get("/", (req, res) => {
-    res.sendFile(`${__dirname}/register.html`);
-})
 server.use( "/user", routerUsers );
 server.use( "/cocktaile", routerCocktailes );
 server.use( "/ingr", routerIngr );
+server.get("/", (req, res) => {
+    res.sendFile(`${__dirname}/index.html`);
+})
 
-server.listen(PORT, ()=> console.log(`listening on: http://localhost:${PORT}`) )
+server.listen(PORT, ()=> console.log(`listening on: http://localhost:${PORT}`))
