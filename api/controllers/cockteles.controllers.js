@@ -2,13 +2,22 @@ const Cockteles = require("../models/cockteles.model");
 
 const getCockteles = async (req, res) => {
     try {
-        const allCocteles = await Cockteles.find();
+        const allCocteles = await Cockteles.find().populate("receta");
         return res.status(200).json(allCocteles);
     } catch (error) {
         return res.status(500).json(error);
         
     }
 };
+const getCocktelesById = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const allCockteles = await Cockteles.findById(id).populate("receta");
+      return res.status(200).json(allCockteles);
+    } catch (error) {
+      return res.status(500).json(error);
+    }
+  };
 
 const createCocktaile = async (req, res) => {
     try {
@@ -48,4 +57,4 @@ const deleteCocktaile = async (req, res) => {
     }
 }
 
-module.exports = { getCockteles, createCocktaile, modifyCocktaile, deleteCocktaile };
+module.exports = { getCockteles, getCocktelesById, createCocktaile, modifyCocktaile, deleteCocktaile };

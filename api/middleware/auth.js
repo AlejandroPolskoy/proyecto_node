@@ -3,15 +3,16 @@ const User = require("../models/users.model");
 
 async function isAuth(req, res, next) {
     try {
-        const auth = req.headers.autorization;
+        //const autorization = req.headers.autorization;
+        const autorization = req.body.token || req.headers.authorization;
 
         if(!autorization) {
-            return res.status(200).json( { message: "unauthorized" } )
+            return res.status(200).json( { message: "Usuario no autorizado" } )
         }
 
         const token = autorization.split(" ")[1];
         if(!token) {
-            return res.status(401).json({ message: "no token provided" })
+            return res.status(401).json({ message: "Token irroneo" })
         }
 
         let tokenVerified = verifyToken(token, process.env.JWT_KEY);
@@ -23,7 +24,6 @@ async function isAuth(req, res, next) {
         req.user = userLogged;
 
         next();
-        
     } catch(err) {
         return res.status(500).json(err);
     }

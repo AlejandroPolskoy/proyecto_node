@@ -1,7 +1,7 @@
 const User = require("../models/users.model");
 const bcrypt = require('bcrypt');
 const {validateEmail, validatePassword, usedEmail} = require('../utils/validators');
-const { generateToken } = require('../utils/jwt');
+const { generateToken, verifyToken } = require('../utils/jwt');
 
 async function getUsers(req, res) {
     try {
@@ -39,17 +39,18 @@ async function loginUser(req, res) {
         if(!bcrypt.compareSync(req.body.password, userInfo.password)) {
             return res.status(404).json({message: 'Clave incorrecto'});
         }
-        const token = generateSign(userInfo._id, userInfo.email)
-        return res.status(200).json({userInfo, token});
+        const token = generateToken(userInfo._id, userInfo.email);
+        userInfo.token = token;
+        return res.status(200).json(userInfo);
     } catch (error) {
         return res.status(500).json(error)
     }
 }
-function logoutUser(req, res) {
-    console.log("Esto es logout");
+async function logoutUser(req, res) {
+    req.session.destroy();
+    return res.status(200).json( { "mensaje" : "Session terminada" } );
 }
 async function updateUser(req, res) {
-    //console.log("Esto es updateUser");
     try {
         const {id} = req.params;
         const userToUpdate = new User(req.body);
@@ -65,7 +66,6 @@ async function updateUser(req, res) {
     }
 }
 async function deleteUser(req, res) {
-    //console.log("Esto es deleteUser");
     try {
         const {id} = req.params;
         const userToDelete = await User.findByIdAndDelete();

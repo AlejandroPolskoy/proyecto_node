@@ -9,6 +9,26 @@ const getIngr = async (req, res) =>{
     }
 };
 
+const getIngrById = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const allIngr = await Ingrediente.findById(id);
+      return res.status(200).json(allIngr);
+    } catch (error) {
+      return res.status(500).json(error);
+    }
+  };
+
+// const getIngrByName = async (req, res) => {
+//   try {
+//     const { name } = req.params;
+//     const ingrName = await Ingrediente.findOne({ nombre: new RegExp("^" + name + "$", "i")});
+//     return res.status(200).json(ingrName);
+//   } catch (error) {
+//     return res.status(500).json(error);
+//   }
+// };
+
 const createIngr = async (req, res) => {
     try {
         const newIngr = new Ingrediente(req.body);
@@ -47,4 +67,4 @@ const deleteIngr = async (req, res) => {
     }
 }
 
-module.exports = { getIngr, createIngr, modifyIngr, deleteIngr }; 
+module.exports = { getIngr, getIngrById, createIngr, modifyIngr, deleteIngr }; 
