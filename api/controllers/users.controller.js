@@ -23,6 +23,9 @@ async function registerUser(req, res) {
         if(!validatePassword(newUser.password)) {
             return res.status(400).json({ message: "La clave incorrecta" });
         }
+        if(req.file.path){
+            newUser.image = req.file.path;
+        }
         newUser.password = bcrypt.hashSync(newUser.password, 10);
         const createdUser = await newUser.save();
         return res.status(201).json(createdUser);
@@ -56,10 +59,15 @@ async function updateUser(req, res) {
         const userToUpdate = new User(req.body);
         userToUpdate._id = id;
         
+        if(req.file.path){
+            userToUpdate.image = req.file.path;
+        }
+
         const userUpdated = await User.findByIdAndUpdate(id, userToUpdate, {new: true });
         if(!userUpdated) {
             return res.status(404).json({message: 'Usuario no encontrado'});
         }
+        
         return res.status(200).json(userUpdated);
     } catch (error) {
         return res.status(500).json(error)

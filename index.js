@@ -32,7 +32,7 @@ server.use( "/user", routerUsers );
 server.use( "/cocteles", routerCocktailes );
 server.use( "/ingr", routerIngr );
 server.get( "/", (req, res) => {
-    res.sendFile(`${__dirname}/index.html`);
+    //res.sendFile(`${__dirname}/index.html`);
 })
 
 server.use(cors({

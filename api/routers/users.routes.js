@@ -1,5 +1,6 @@
 const express = require("express");
-const { isAuth } = require("../middleware/auth");
+const { isAuth, isAdmin } = require("../middleware/auth");
+const upload = require("../middleware/upload.cloud");
 
 const router = express.Router();
 
@@ -12,11 +13,11 @@ const {
     deleteUser
 } = require("../controllers/users.controller");
 
-router.get("/", isAuth, getUsers);
-router.post("/register", registerUser);
+router.get("/", isAdmin, getUsers);
+router.post("/register", upload.single('image'), registerUser);
 router.post("/login", loginUser);
 router.post("/logout", logoutUser);
-router.put("/:id", isAuth, updateUser);
-router.delete("/:id", isAuth, deleteUser);
+router.put("/:id", [isAuth, upload.single('image')], updateUser);
+router.delete("/:id", isAdmin, deleteUser);
 
 module.exports = router;
