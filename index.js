@@ -21,7 +21,7 @@ server.use((req, res , next) => {
     res.header('Access-Control-Allow-Method', 'POST, GET, DELETE, PUT, PATCH');
     res.header('Access-Control-Allow-Credentials', 'true');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
-    res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:5500'); 
+    //res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:5500'); 
     next();
 })
 
@@ -33,10 +33,11 @@ server.use( "/cocteles", routerCocktailes );
 server.use( "/ingr", routerIngr );
 server.get( "/", (req, res) => {
     //res.sendFile(`${__dirname}/index.html`);
+    res.status(200).json({"message": "hola"});
 })
 
 server.use(cors({
-    origin: ["http://localhost:5500", "http://localhost:4200", "http://nombre.vercel.com", "http://127.0.0.1:5500"],
+    origin: ["http://localhost:5500", "http://nombre.vercel.com", "http://127.0.0.1:5500"],
     credentials: true
 }))
 
