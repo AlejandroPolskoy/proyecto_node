@@ -2,7 +2,7 @@ const Ingrediente = require("../models/ingr.model");
 
 const getIngr = async (req, res) =>{
     try {
-    const allIngr = await Ingr.find();
+      const allIngr = await Ingrediente.find();
       return res.status(200).json(allIngr); 
     } catch (error) {
       return res.status(500).json(error);
@@ -57,7 +57,7 @@ const modifyIngr = async (req, res) => {
 const deleteIngr = async (req, res) => {
     try {
         const {id} = req.params;
-        const deleteIngr = await Ingredientes.findByIdAndDelete(id);
+        const deleteIngr = await Ingrediente.findByIdAndDelete(id);
         if(!deleteIngr){
             return res.status(404).json({"message": "Ingrediente borrado"})
         }
