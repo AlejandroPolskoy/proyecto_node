@@ -37,7 +37,7 @@ server.get( "/", (req, res) => {
 })
 
 server.use(cors({
-    origin: ["http://localhost:5500", "http://nombre.vercel.com", "http://127.0.0.1:5500", "*"],
+    origin: ["http://localhost:5500", "https://proyecto-node-self.vercel.app/", "http://127.0.0.1:5500", "*"],
     credentials: true
 }))
 

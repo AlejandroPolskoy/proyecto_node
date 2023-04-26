@@ -18,7 +18,7 @@ const getCockteles = async (req, res) => {
             allCocteles = await Cockteles.find().skip(skip).limit(limit).populate("receta");
         } else {
             page = 1;
-            nextPage = total > limit ? `v/?page=2&limit=${limit}` : null;
+            nextPage = total > limit ? `/?page=2&limit=${limit}` : null;
             prevPage = null;
             allCocteles = await Cockteles.find().limit(limit).populate("receta");
         }
